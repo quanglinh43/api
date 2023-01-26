@@ -42,7 +42,8 @@ namespace Employee.Controllers
                 CustomerFirstName = "thang",
                 CustomerLastName = "nguyen"
             });
-            return Ok(customers);
+            var result = customers.Where(p => p.CustomerID == "1");
+            return Ok(result);
 
         }
     }

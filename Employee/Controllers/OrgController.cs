@@ -116,7 +116,21 @@ namespace Employee.Controllers
             return Ok(list.Where(p => p.Parent_Id == 0));
 
         }
+        [HttpGet("getAll")]
+        public IActionResult getAllOrg() 
+        {
+            var result = _context.C_Org.OrderBy(p=>p.Name).ToList();
 
+            return Ok(result);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> getById(int id) 
+        {
+            var result = await _context.C_Org.FindAsync(id);
+            if(result==null)
+                return NotFound();
+            return Ok(result);
+        }
 
     }
 }

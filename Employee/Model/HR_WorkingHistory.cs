@@ -7,7 +7,7 @@ namespace Employee.Model
     public class HR_WorkingHistory
     {
         [Key]
-        public int HR_WorkingHistory_Id { get; set; }
+        public Int64 HR_WorkingHistory_Id { get; set; }
         public DateTime Created_Date { get; set; }
         public string Created_User { get; set; }
         public DateTime Updated_Date { get; set; }
@@ -18,6 +18,6 @@ namespace Employee.Model
         public DateTime From_Date { get; set; }
         public DateTime To_Date { get; set; }
         public string JobTitle { get; set; }
-        public float SalaryAmt { get; set; }
+        public decimal SalaryAmt { get; set; }
     }
 }
