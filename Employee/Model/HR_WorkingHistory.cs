@@ -16,7 +16,7 @@ namespace Employee.Model
         public int HR_Employee_Id { get; set; }
         public int C_Org_Id { get; set; }
         public DateTime From_Date { get; set; }
-        public DateTime To_Date { get; set; }
+        public DateTime? To_Date { get; set; }
         public string JobTitle { get; set; }
         public decimal SalaryAmt { get; set; }
     }

@@ -24,7 +24,7 @@ namespace Employee.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWHById(int id)
         {
-            var result = _context.HR_WorkingHistorys.Where(p=>p.HR_WorkingHistory_Id==id);
+            var result = _context.HR_WorkingHistorys.Where(p=>p.HR_WorkingHistory_Id==id).FirstOrDefault();
             return Ok(result);
         }
         [HttpPost]
@@ -69,6 +69,18 @@ namespace Employee.Controllers
                 _context.SaveChanges();
                 return NoContent();
             }    
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateActive(int id)
+        {
+            var wh = _context.HR_WorkingHistorys.Where(p => p.HR_WorkingHistory_Id == id).FirstOrDefault();
+            if (wh == null)
+            {
+                return NotFound();
+            }
+            wh.IsActive = !wh.IsActive;
+            _context.SaveChanges();
+            return NoContent();
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteWH(int id)
