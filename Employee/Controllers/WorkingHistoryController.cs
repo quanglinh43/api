@@ -18,7 +18,7 @@ namespace Employee.Controllers
         [HttpGet]
         public IActionResult GetWHByIdEmployee(int id)
         {
-            var result = _context.HR_WorkingHistorys.Where(p=>p.HR_Employee_Id==id).OrderBy(p1=>p1.From_Date);
+            var result = _context.HR_WorkingHistorys.Where(p=>p.HR_Employee_Id==id).OrderByDescending(p1=>p1.From_Date);
             return Ok(result);
         }
         [HttpGet("{id}")]
@@ -32,6 +32,14 @@ namespace Employee.Controllers
         {
             try
             {
+                var work = _context.HR_WorkingHistorys.Where(p=>p.HR_Employee_Id==wh.HR_Employee_Id).OrderBy(p => p.From_Date).LastOrDefault();
+                if(work!=null)
+                {
+                    DateTime end = wh.From_Date.AddDays(-1);
+                    work.To_Date = end;
+                    _context.SaveChanges();
+                }    
+                
                 wh.Created_Date = DateTime.Now;
                 wh.Updated_Date = DateTime.Now;
                 wh.Updated_User = "linh";
@@ -49,6 +57,8 @@ namespace Employee.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateWH(int id, HR_WorkingHistory wh)
         {
+            
+            
             DateTime dateTime= DateTime.Now;
             var _wh = _context.HR_WorkingHistorys.Where(p => p.HR_WorkingHistory_Id == id).FirstOrDefault();
             if (_wh==null)
